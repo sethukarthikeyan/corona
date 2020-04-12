@@ -42,6 +42,10 @@ top_df = top_df.assign(New_Cases = confirmed_diff)
 top_df = top_df.assign(New_Deaths = deaths_diff)
 top_df = top_df.assign(New_Recovered = recovered_diff)
 
+top_df = top_df.rename(columns = {"New_Cases": "New Cases", 
+                                  "New_Deaths":"New Deaths", 
+                                  "New_Recovered": "New Recovered"}) 
+
 # First Chart
 top_df1 = top_df.sort_values(by='Confirmed', ascending=False)
 my_df1 = top_df1.head(10)
