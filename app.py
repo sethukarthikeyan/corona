@@ -23,10 +23,24 @@ data.sort_index()
 data.index.name=None
 data["Date"] = pd.to_datetime(data["Date"])
 #data.sort_values(by='Date', inplace=True, ascending=False)
-yesterday = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
+yesterday = datetime.strftime(datetime.now() - timedelta(2), '%Y-%m-%d')
+curr_date = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
 
+top_df = data.loc[data['Date']==curr_date]
+last_df = data.loc[data['Date']==yesterday]
 
-top_df = data.loc[data['Date']==yesterday]
+confirmed_diff = []
+deaths_diff = []
+recovered_diff = []
+
+for itm in top_df.index.values:
+    confirmed_diff.append(top_df.loc[itm]['Confirmed'] - last_df.loc[itm]['Confirmed'])
+    deaths_diff.append(top_df.loc[itm]['Deaths'] - last_df.loc[itm]['Deaths'])
+    recovered_diff.append(top_df.loc[itm]['Recovered'] - last_df.loc[itm]['Recovered'])
+
+top_df = top_df.assign(New_Cases = confirmed_diff)
+top_df = top_df.assign(New_Deaths = deaths_diff)
+top_df = top_df.assign(New_Recovered = recovered_diff)
 
 # First Chart
 top_df1 = top_df.sort_values(by='Confirmed', ascending=False)
@@ -79,7 +93,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index.html',tables=[re.sub(' mytable', '" id="mytable', data.loc[data['Date']==yesterday].to_html(classes='mytable'))], titles = ['na'],
+    return render_template('index.html',tables=[re.sub(' mytable', '" id="mytable', top_df.loc[top_df['Date']==curr_date].to_html(classes='mytable'))], titles = ['na'],
     plot_script=script,
     plot_div=div,
     plot_script2=script2,
