@@ -51,9 +51,13 @@ top_df1 = top_df.sort_values(by='Confirmed', ascending=False)
 my_df1 = top_df1.head(10)
 countries1 = list(my_df1.index)
 counts1 = list(my_df1['Confirmed'])
-p = figure(x_range=countries1, plot_height=250, title="Top 10 Countries by Confirmed Cases",
+TOOLTIPS = [
+    ("Confirmed", "@top")
+]
+p = figure(x_range=countries1, plot_height=250,tooltips=TOOLTIPS, title="Top 10 Countries by Confirmed Cases",
             toolbar_location=None, tools="")
 p.vbar(x=countries1, top=counts1, width=0.9)
+p.left[0].formatter.use_scientific = False
 p.xgrid.grid_line_color = None
 p.y_range.start = 0
 # grab the static resources
@@ -67,9 +71,13 @@ top_df2 = top_df.sort_values(by='Deaths', ascending=False)
 my_df2 = top_df2.head(10)
 countries2 = list(my_df2.index)
 counts2 = list(my_df2['Deaths'])
-p2 = figure(x_range=countries2, plot_height=250, title="Top 10 Countries by Death Cases",
+TOOLTIPS = [
+    ("Deaths", "@top")
+]
+p2 = figure(x_range=countries2, plot_height=250,tooltips=TOOLTIPS, title="Top 10 Countries by Death Cases",
             toolbar_location=None, tools="")
 p2.vbar(x=countries2, top=counts2, width=0.9)
+p2.left[0].formatter.use_scientific = False
 p2.xgrid.grid_line_color = None
 p2.y_range.start = 0
 # grab the static resources
@@ -83,9 +91,13 @@ top_df3 = top_df.sort_values(by='Recovered', ascending=False)
 my_df3 = top_df3.head(10)
 countries3 = list(my_df3.index)
 counts3 = list(my_df3['Recovered'])
-p3 = figure(x_range=countries3, plot_height=250, title="Top 10 Countries by Recovered Cases",
+TOOLTIPS = [
+    ("Recovered", "@top")
+]
+p3 = figure(x_range=countries3, plot_height=250,tooltips=TOOLTIPS, title="Top 10 Countries by Recovered Cases",
             toolbar_location=None, tools="")
 p3.vbar(x=countries3, top=counts3, width=0.9)
+p3.left[0].formatter.use_scientific = False
 p3.xgrid.grid_line_color = None
 p3.y_range.start = 0
 # grab the static resources
