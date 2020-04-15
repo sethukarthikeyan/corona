@@ -17,8 +17,8 @@ headers = {
     }
 
 response = requests.request("GET", url, headers=headers)
-
 result = json.loads(response.text)
+print('Keys:', result.keys())
 refreshed_Date = result['statistic_taken_at'].split()[0]
 for itm in result['countries_stat']:
     masterlist.append([itm['country_name'],refreshed_Date, itm['cases'],itm['new_cases'],itm['deaths'],itm['new_deaths'],itm['total_recovered'],itm['active_cases'],itm['serious_critical'],itm['total_cases_per_1m_population']])
