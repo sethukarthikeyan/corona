@@ -21,8 +21,9 @@ result = json.loads(response.text)
 print('Keys:', result.keys())
 #refreshed_Date = result['statistic_taken_at']
 #refreshed_Date = refreshed_Date.split()[0]
-for itm in result['countries_stat']:
-    masterlist.append([itm['country_name'],result['statistic_taken_at'].split()[0], itm['cases'],itm['new_cases'],itm['deaths'],itm['new_deaths'],itm['total_recovered'],itm['active_cases'],itm['serious_critical'],itm['total_cases_per_1m_population']])
+if 'countries_stat' in result.keys():
+    for itm in result['countries_stat']:
+        masterlist.append([itm['country_name'],result['statistic_taken_at'].split()[0], itm['cases'],itm['new_cases'],itm['deaths'],itm['new_deaths'],itm['total_recovered'],itm['active_cases'],itm['serious_critical'],itm['total_cases_per_1m_population']])
        
 data = pd.DataFrame(masterlist, columns=['Country', 'Date', 'Total Cases', 'New Cases','Total Deaths','New Deaths', 'Total Recovered','Active Cases','Serious Critical','Total Cases/1M Population'])
 data.set_index(['Country'], inplace=True)
